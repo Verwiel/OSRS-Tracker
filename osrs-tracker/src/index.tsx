@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './sass/main.scss';
 import { App } from './App';
+import { CharacterProvider } from "./context/CharacterProvider";
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -9,7 +10,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <CharacterProvider>
+      <App />
+    </CharacterProvider>
   </React.StrictMode>
 );
 

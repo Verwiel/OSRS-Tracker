@@ -37,10 +37,31 @@ def fetch_highscores_titles():
     create_data(skills_list, 'skills.json')
 
 
+@highscores.route('/check/<username>', methods=['GET'])
+def check_osrs_profile(username):
+    osrs_url = f"https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player={username}"
+    r = requests.get(osrs_url)
+    soup = BeautifulSoup(r.content, 'html.parser')
+
+    # if there is no character there will be a title in the data
+    no_character_exists = soup.find('title')
+    if no_character_exists:
+        return {
+            'status': 404,
+            'message': 'character does not exist'
+        }
+    else :
+        return {
+            'status': 200,
+            'message': 'success'
+        }
+
+
 @highscores.route('/<username>', methods=['GET'])
 def get_osrs_profile(username):
     osrs_url = f"https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player={username}"
     r = requests.get(osrs_url)
+
     rbody = r.text
     rlist = rbody.splitlines()
 
@@ -85,3 +106,4 @@ def get_osrs_profile(username):
     }
     
     return res_data_highscores
+        

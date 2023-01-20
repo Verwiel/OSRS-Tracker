@@ -4,6 +4,7 @@ import { backendURL } from '../config/Config'
 import { ProviderType } from '../models/provider'
 import { CharacterType } from '../models/character-info'
 import defaultChearacterInfo from '../data/character-info.json'
+// import defaultQuestInfo from '../data/quest-info.json'
 
 const CharacterContext = createContext<characterContextType | null>(null);
 
@@ -19,38 +20,62 @@ export const useCharacterCtx = () => {
   
 interface characterContextType {
   username: string;
-  characterInfo: CharacterType,
+  characterInfo: CharacterType;
+  userInput: string;
+  clearCharacter: () => void;
   usernameOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   lookupCharacter: (e: React.FormEvent<HTMLElement>) => void;
-  getCharacterInfo: () => void;
 }
+
 
 export const CharacterProvider: React.FC<ProviderType> = ({ children }) => {
   let storedUsername = localStorage.getItem('osrs-username')
-  const [username, setUsername] = useState(storedUsername ? storedUsername : '')
-  const [characterInfo, setCharacterInfo] = useState(defaultChearacterInfo)
+  let storedCharacterInfo = localStorage.getItem('osrs-character-info')
+  // let storedQuests = localStorage.getItem('osrs-quests')
 
-  const lookupCharacter = (e: React.FormEvent<HTMLElement>) => {
+
+  const [userInput, setUserInput] = useState(storedUsername ? storedUsername : '')
+  const [username, setUsername] = useState(storedUsername ? storedUsername : '')
+  const [characterInfo, setCharacterInfo] = useState(
+    storedCharacterInfo ? JSON.parse(storedCharacterInfo) : defaultChearacterInfo
+  )
+
+  const lookupCharacter = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault()
-    console.log(username)
-    localStorage.setItem('osrs-username', username);
-    if(username.length > 0 ){
-      getCharacterInfo()
+    localStorage.removeItem('osrs-username')
+    try {
+      let { data } = await axios.get(`${backendURL}/highscores/check/${userInput}`)
+      if(data.status === 200){
+        localStorage.setItem('osrs-username', userInput);
+        setUsername(userInput)
+        getCharacterInfo(userInput)
+      } else {
+        alert(`No player "${userInput}" found`)
+        clearCharacter()
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
   const usernameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value)
+    setUserInput(e.target.value)
   }
 
-  const getCharacterInfo = async () => {
+  const clearCharacter = () => {
+    localStorage.removeItem('osrs-username')
+    localStorage.removeItem('osrs-character-info')
+    setUsername('')
+    setUserInput('')
+    setCharacterInfo(defaultChearacterInfo)
+  }
+
+  const getCharacterInfo = async (username: string) => {
     try {
       // need to add to backend for cors errors
       let { data } = await axios.get(`${backendURL}/highscores/${username}`)
-      console.log(data)
-      if(data.atk) {
-        setCharacterInfo(data)
-      }
+      setCharacterInfo(data)
+      localStorage.setItem('osrs-character-info', JSON.stringify(data))
     } catch(err) {
       console.log(err)
     }
@@ -59,7 +84,12 @@ export const CharacterProvider: React.FC<ProviderType> = ({ children }) => {
 
   return (
     <CharacterContext.Provider value={{
-      username, characterInfo, usernameOnChange, lookupCharacter, getCharacterInfo
+      userInput, 
+      username, 
+      characterInfo, 
+      usernameOnChange, 
+      lookupCharacter,       
+      clearCharacter
     }}>
       {children}
     </CharacterContext.Provider>
