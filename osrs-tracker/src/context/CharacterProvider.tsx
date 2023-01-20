@@ -46,7 +46,7 @@ export const CharacterProvider: React.FC<ProviderType> = ({ children }) => {
   const getCharacterInfo = async () => {
     try {
       // need to add to backend for cors errors
-      let { data } = await axios.get(`${backendURL}/character/${username}`)
+      let { data } = await axios.get(`${backendURL}/highscores/${username}`)
       console.log(data)
       if(data.atk) {
         setCharacterInfo(data)
