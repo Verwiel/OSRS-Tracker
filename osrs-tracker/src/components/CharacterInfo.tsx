@@ -1,8 +1,8 @@
-import { useCharacterCtx } from "../context/CharacterProvider";
+// import { useCharacterCtx } from "../context/CharacterProvider";
 
 export const CharacterInfo = () => {
-  const { characterInfo } = useCharacterCtx()
-  console.log(characterInfo)
+  // const { characterInfo } = useCharacterCtx()
+  // console.log(characterInfo)
 
   return (
     <section>

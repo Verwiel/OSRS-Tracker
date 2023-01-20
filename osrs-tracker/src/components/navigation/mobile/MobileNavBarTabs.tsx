@@ -7,11 +7,11 @@ interface MobileNavBarTabsProps {
 }
 
 export const MobileNavBarTabs: React.FC<MobileNavBarTabsProps> = ({ handleClick }) => {
-  const { username } = useCharacterCtx()
+  const { storedUsername } = useCharacterCtx()
   
   return (
     <div className="mobile-nav-bar__tabs">
-      {username &&
+      {storedUsername &&
         <>
           <MobileNavBarTab path="/levels" label="Levels" handleClick={handleClick} />
           <MobileNavBarTab path="/activities" label="Activities" handleClick={handleClick} />

@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -9,10 +9,12 @@ highscores = Blueprint("highscores", __name__)
 
 osrs_api_url = 'https://runescape.wiki/w/Application_programming_interface'
 
+
 def clean_html_res(element):
     element_list = element.text.splitlines()
     cleaned_list = [re.sub('[^a-zA-Z0-9]+', '', _).lower() for _ in element_list]
     return cleaned_list
+
 
 def create_data(list_items, file_name):
     jsonString = json.dumps(list_items)
@@ -37,30 +39,28 @@ def fetch_highscores_titles():
     create_data(skills_list, 'skills.json')
 
 
-@highscores.route('/check/<username>', methods=['GET'])
-def check_osrs_profile(username):
-    osrs_url = f"https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player={username}"
-    r = requests.get(osrs_url)
-    soup = BeautifulSoup(r.content, 'html.parser')
-
-    # if there is no character there will be a title in the data
-    no_character_exists = soup.find('title')
-    if no_character_exists:
-        return {
-            'status': 404,
-            'message': 'character does not exist'
-        }
-    else :
-        return {
-            'status': 200,
-            'message': 'success'
-        }
+def get_gamemode_url(mode, username):
+    base_url = 'https://secure.runescape.com/m='
+    base_url_end = f'/index_lite.ws?player={username}'
+    match mode:
+        case 'regular':
+            return base_url+'hiscore_oldschool'+base_url_end
+        case 'ironman':
+            return base_url+'hiscore_oldschool_ironman'+base_url_end
+        case 'hcim':
+            return base_url+'hiscore_oldschool_hardcore_ironman'+base_url_end
+        case 'uim':
+            return base_url+'hiscore_oldschool_ultimate'+base_url_end
+        case _:
+            return base_url+'hiscore_oldschool'+base_url_end
 
 
-@highscores.route('/<username>', methods=['GET'])
-def get_osrs_profile(username):
-    osrs_url = f"https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player={username}"
-    r = requests.get(osrs_url)
+@highscores.route('/', methods=['GET'])
+def get_osrs_profile():
+    username = request.args.get('username')
+    gamemode = request.args.get('gamemode')
+    game_url = get_gamemode_url(gamemode, username)
+    r = requests.get(game_url)
 
     rbody = r.text
     rlist = rbody.splitlines()
@@ -106,4 +106,26 @@ def get_osrs_profile(username):
     }
     
     return res_data_highscores
-        
+
+
+@highscores.route('/check/account', methods=['GET'])
+def check_osrs_profile():
+    username = request.args.get('username')
+    gamemode = request.args.get('gamemode')
+    game_url = get_gamemode_url(gamemode, username)
+
+    r = requests.get(game_url)
+    soup = BeautifulSoup(r.content, 'html.parser')
+
+    # if there is no character there will be a title in the data
+    no_character_exists = soup.find('title')
+    if no_character_exists:
+        return {
+            'status': 404,
+            'message': 'character does not exist'
+        }
+    else :
+        return {
+            'status': 200,
+            'message': 'success'
+        }
