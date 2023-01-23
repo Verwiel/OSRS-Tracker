@@ -5,12 +5,12 @@ import { CharacterLookup } from "../components/CharacterLookup";
 import { CharacterDisplay } from "../components/CharacterDisplay";
 
 export const HomePage: React.FC = () => {
-  const { storedUsername } = useCharacterCtx()
+  const { storedUsername, characterLoaded } = useCharacterCtx()
 
   return (
     <PageLayout>
       <h1>Homepage</h1>
-      {storedUsername ?
+      {storedUsername || characterLoaded ?
         <CharacterDisplay />
       :
         <CharacterLookup />

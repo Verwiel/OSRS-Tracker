@@ -1,7 +1,7 @@
 import { useCharacterCtx } from '../context/CharacterProvider'
 
 export const CharacterLookup = () => {
-  const { userInput, lookupCharacter, usernameOnChange, gamemodeOnChange } = useCharacterCtx()
+  const { userInput, lookupCharacter, usernameOnChange, gamemodeOnChange, loadingCharacter } = useCharacterCtx()
 
   return (
     <form onSubmit={lookupCharacter}>
@@ -25,7 +25,13 @@ export const CharacterLookup = () => {
           <option value="uim">Ultimate Ironman</option>
         </select>
       </label>
-      <button type='submit'>Lookup</button>
+      <button type='submit'>
+        {loadingCharacter ?
+          'Loading...'
+          :
+          'Lookup'
+        }
+      </button>
     </form>
   );
 };

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react'
+import React, { createContext, useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { backendURL } from '../config/Config'
 import { ProviderType } from '../models/provider'
@@ -20,6 +20,9 @@ export const useCharacterCtx = () => {
   
 interface characterContextType {
   storedUsername: string | null;
+  storedGamemode: string | null;
+  loadingCharacter: boolean;
+  characterLoaded: boolean;
   characterInfo: CharacterType;
   userInput: UserInputType;
   gamemodeDisplay: string;
@@ -27,6 +30,7 @@ interface characterContextType {
   usernameOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   gamemodeOnChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   lookupCharacter: (e: React.FormEvent<HTMLElement>) => void;
+  getCharacterInfo: () => void;
 }
 
 interface UserInputType {
@@ -49,6 +53,8 @@ export const CharacterProvider: React.FC<ProviderType> = ({ children }) => {
   const [characterInfo, setCharacterInfo] = useState(
     storedCharacterInfo ? JSON.parse(storedCharacterInfo) : defaultChearacterInfo
   )
+  const [loadingCharacter, setLoadingCharacter] = useState(false)
+  const [characterLoaded, setCharacterLoaded] = useState(false)
 
   let gamemodeDisplay = ''
   switch(userInput.gamemode){
@@ -69,15 +75,23 @@ export const CharacterProvider: React.FC<ProviderType> = ({ children }) => {
       break;
   }
 
+  useEffect(() => {
+    if(storedUsername && storedGamemode){
+      getCharacterInfo()
+    }
+  }, [storedUsername, storedGamemode])
+
   const lookupCharacter = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault()
     localStorage.removeItem('osrs-username')
     try {
+      setLoadingCharacter(true)
       let { data } = await axios.get(`${backendURL}/highscores/check/account?username=${userInput.username}&gamemode=${userInput.gamemode}`)
       if(data.status === 200){
         localStorage.setItem('osrs-username', userInput.username);
         localStorage.setItem('osrs-gamemode', userInput.gamemode);
-        getCharacterInfo(userInput.username, userInput.gamemode)
+        setLoadingCharacter(false)
+        setCharacterLoaded(true)
       } else {
         alert(`No player "${userInput.username}" found in "${gamemodeDisplay}" game mode`)
         clearCharacter()
@@ -101,14 +115,16 @@ export const CharacterProvider: React.FC<ProviderType> = ({ children }) => {
     localStorage.removeItem('osrs-username')
     localStorage.removeItem('osrs-character-info')
     localStorage.removeItem('osrs-gamemode')
+    setLoadingCharacter(false)
+    setCharacterLoaded(false)
     setUserInput(defaultUserInput)
     setCharacterInfo(defaultChearacterInfo)
   }
 
-  const getCharacterInfo = async (username: string, gamemode: string) => {
+  const getCharacterInfo = async () => {
     try {
       // need to add to backend for cors errors
-      let { data } = await axios.get(`${backendURL}/highscores?username=${username}&gamemode=${gamemode}`)
+      let { data } = await axios.get(`${backendURL}/highscores?username=${storedUsername}&gamemode=${storedGamemode}`)
       setCharacterInfo(data)
       localStorage.setItem('osrs-character-info', JSON.stringify(data))
     } catch(error) {
@@ -121,12 +137,16 @@ export const CharacterProvider: React.FC<ProviderType> = ({ children }) => {
     <CharacterContext.Provider value={{
       userInput, 
       storedUsername, 
+      storedGamemode,
       characterInfo,
       gamemodeDisplay, 
+      loadingCharacter,
+      characterLoaded,
       usernameOnChange, 
       gamemodeOnChange,
       lookupCharacter,       
-      clearCharacter
+      clearCharacter,
+      getCharacterInfo
     }}>
       {children}
     </CharacterContext.Provider>
