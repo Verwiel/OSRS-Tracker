@@ -30,7 +30,6 @@ interface characterContextType {
   usernameOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   gamemodeOnChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   lookupCharacter: (e: React.FormEvent<HTMLElement>) => void;
-  getCharacterInfo: () => void;
 }
 
 interface UserInputType {
@@ -145,8 +144,7 @@ export const CharacterProvider: React.FC<ProviderType> = ({ children }) => {
       usernameOnChange, 
       gamemodeOnChange,
       lookupCharacter,       
-      clearCharacter,
-      getCharacterInfo
+      clearCharacter
     }}>
       {children}
     </CharacterContext.Provider>
