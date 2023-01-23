@@ -12,8 +12,8 @@ osrs_api_url = 'https://runescape.wiki/w/Application_programming_interface'
 
 def clean_html_res(element):
     element_list = element.text.splitlines()
-    cleaned_list = [re.sub('[^a-zA-Z0-9]+', '', _).lower() for _ in element_list]
-    return cleaned_list
+    # cleaned_list = [re.sub('[^a-zA-Z0-9]+', '', _).lower() for _ in element_list]
+    return element_list
 
 
 def create_data(list_items, file_name):
@@ -38,6 +38,7 @@ def fetch_highscores_titles():
     create_data(activities_list, 'activities.json')
     create_data(skills_list, 'skills.json')
 
+# fetch_highscores_titles()
 
 def get_gamemode_url(mode, username):
     base_url = 'https://secure.runescape.com/m='
@@ -71,7 +72,7 @@ def get_osrs_profile():
 
     activities_file = open("activities.json", "r").read()
     activities_keys = json.loads(activities_file)
-    activities_data = rlist[len(activities_keys):]
+    activities_data = rlist[len(skills_keys):]
 
     def separate_sub_lists(sub_list, key_name):
         if len(sub_list) > 2:
@@ -88,6 +89,7 @@ def get_osrs_profile():
                 'activity': key_name,
                 'rank': sub_list[0],
                 'score': sub_list[1],
+                'icon': re.sub('[^a-zA-Z0-9]+', '', key_name).lower()
             }
 
     def create_data_lists(list_data, key_data):
@@ -102,7 +104,7 @@ def get_osrs_profile():
 
     res_data_highscores = {
         'skills': osrs_skills,
-        'activites': osrs_activities,
+        'activities': osrs_activities,
     }
     
     return res_data_highscores
