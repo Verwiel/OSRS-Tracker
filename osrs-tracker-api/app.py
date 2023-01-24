@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from apscheduler.schedulers.background import BackgroundScheduler
+from flask_apscheduler import APScheduler
 from highscores import highscores
 from quests import quests
 from crons import crons, check_quests, fetch_highscores_titles
@@ -18,18 +18,21 @@ app.register_blueprint(crons)
 
 
 # Check if quests or highscores scraped data has updated daily
-# if __name__ == '__main__':
-scheduler = BackgroundScheduler()
-scheduler.configure(timezone=utc)
-scheduler.add_job(check_quests, trigger='cron', hour=22, minute=30)
-scheduler.add_job(fetch_highscores_titles, trigger='cron', hour=23, minute=30)
-scheduler.start()
-print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
+scheduler = APScheduler()
+scheduler.init_app(app)
 
-try:
-    # This is here to simulate application activity (which keeps the main thread alive).
-    while True:
-        time.sleep(5)
-except (KeyboardInterrupt, SystemExit):
-    # Not strictly necessary if daemonic mode is enabled but should be done if possible
-    scheduler.shutdown()
+@scheduler.task('cron', id='quests_cron', hour='23', minute='30')
+def cron_quests():
+    print("Starting Quest Cron")
+    check_quests()
+
+@scheduler.task('cron', id='highscores_cron', hour='22', minute='30')
+def cron_highscores():
+    print("Starting Highscores Cron")
+    fetch_highscores_titles()
+
+scheduler.start()
+
+
+if __name__ == '__main__':
+    app.run()
