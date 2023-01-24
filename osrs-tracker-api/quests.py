@@ -1,36 +1,257 @@
 from flask import Blueprint
 import requests
 from bs4 import BeautifulSoup
-from csv import reader
-import pandas as pd
+import json
+import re
+
 
 # can add static_folder="" and template_folder="" as params below
 quests = Blueprint("quests", __name__)
 
-urls = []
-titles = []
 
-# // need to scrape base website to get the urls first
-# // then check against a csv that exists, if its new append it
-
-with open('quests.csv', 'r') as f:
-  csv_reader = reader(f)
-  for row in csv_reader:
-    urls.append(row[0])
-
-def transform(url):
-  r = requests.get(str(url))
+def fetch_quests():
+  quest_list_url = 'https://oldschool.runescape.wiki/w/Quests/List'
+  r = requests.get(quest_list_url)
   soup = BeautifulSoup(r.content, 'html.parser')
-  title = soup.find('h1').text
-  titles.append(title)
-  print(title)
-  return
 
-for url in urls: 
-  transform(url)
+  table_json = []
+  # free quests
+  def find_titles(table): 
+    for tr in table.find_all('tr')[1:]:
+      title = tr.find('a', title=True)['title']
+      link = tr.find('a', href=True)['href']
+      table_json.append({
+        "title": title,
+        "link": "https://oldschool.runescape.wiki" + link
+      })
 
-print(len(titles))
+  freeQuests = soup.find_all('tbody')[1]
+  memberQuests = soup.find_all('tbody')[3]
+  minigames = soup.find_all('tbody')[4]
 
-df = pd.DataFrame(titles)
-df.to_csv('titles.csv', index=False)
-print('Complete')
+  find_titles(freeQuests)
+  find_titles(memberQuests)
+  find_titles(minigames)
+
+  return table_json
+
+
+# Check if any quests have been added by comparing scraped list to stored list
+def check_quests():
+  scraped_quests = fetch_quests()
+  with open('quest-names.json', "r") as file:
+    quest_json_data = json.load(file)
+
+  if scraped_quests == quest_json_data:
+    # Quest lists are the same
+    print('No new quests or minigames add. Ending process.')
+    create_quest_list()
+  else:
+    # Quest list has been updated
+    jsonString = json.dumps(scraped_quests)
+    jsonFile = open('quest-names.json', "w")
+    jsonFile.write(jsonString)
+    jsonFile.close()
+
+
+def create_quest_list():
+  urls = []
+  quest_json_data = []
+  with open('quest-names.json', 'r') as f:
+    json_data = json.load(f)
+    quest_links = [ sub['link'] for sub in json_data ]
+    urls = quest_links
+  
+  def transform(url):
+    r = requests.get(str(url))
+    soup = BeautifulSoup(r.content, 'html.parser')
+    title = soup.find('h1').text
+    details = soup.find_all('tbody')
+    quick_details = details[1]
+    full_details = details[2]
+
+    # Get details from thumbnail section at top
+    released = ''
+    released_check = quick_details.find('th', text=re.compile("Released"))
+    if released_check != None:
+      releaseDate = quick_details.find('th', text=re.compile("Released")).find_next_sibling('td').find_all('a')
+      released = releaseDate[0].text + ", " + releaseDate[1].get_text(" ",strip=True)
+
+    members_boolean = False
+    members_check = quick_details.find('a', text=re.compile("Members"))
+    if members_check != None:
+      members = quick_details.find('a', text=re.compile("Members")).parent.find_next_sibling('td').get_text(" ",strip=True)
+      members_boolean = members == 'Yes'
+
+    series = ''
+    seriesCheck = quick_details.find('a', text=re.compile("Quest series"))
+    if seriesCheck != None:
+      series = quick_details.find('a', text=re.compile("Quest series")).parent.find_next_sibling('td').get_text(" ",strip=True)
+
+    # Get remaining details from large table
+    start_point = ''
+    start_point_check = full_details.find('th', text=re.compile("Start point"))
+    if start_point_check != None:
+      start_point = full_details.find('th', text=re.compile("Start point")).find_next_sibling('td').get_text(" ",strip=True)
+
+    difficulty = ''
+    difficulty_check = full_details.find('th', text=re.compile("Official difficulty"))
+    if difficulty_check != None:
+      difficulty = full_details.find('th', text=re.compile("Official difficulty")).find_next_sibling('td').get_text(" ",strip=True)
+
+    description = ''
+    description_check = full_details.find('th', text=re.compile("Description"))
+    if description_check != None:
+      description = full_details.find('th', text=re.compile("Description")).find_next_sibling('td').get_text(" ",strip=True)
+
+    length = ''
+    length_check = full_details.find('th', text=re.compile("Official length"))
+    if length_check != None:
+      length = full_details.find('th', text=re.compile("Official length")).find_next_sibling('td').get_text(" ",strip=True)
+
+    # convert to list, add check for if its a string
+    requirements = []
+    requirements_exist_check = full_details.find('th', text=re.compile("Requirements"))
+    if requirements_exist_check != None:
+      requirements_list_check = full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').find_all('li')
+      if requirements_list_check != None:
+        requirements_list = full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').find_all('li')
+        for item in requirements_list:
+          requirements.append(item.get_text(" ",strip=True))
+      else:
+        requirements.append(full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').get_text(" ",strip=True))
+
+    items_required = []
+    items_required_check = full_details.find('th', text=re.compile("Items required"))
+    if items_required_check != None:
+      required_list = full_details.find('th', text=re.compile("Items required")).find_next_sibling('td').find_all('li')
+      for item in required_list:
+        items_required.append(item.get_text(" ",strip=True))
+
+    recommended= []
+    recommended_check = full_details.find('th', text=re.compile("Recommended"))
+    if recommended_check != None:
+      recommended_list = full_details.find('th', text=re.compile("Recommended")).find_next_sibling('td').find_all('li')
+      for item in recommended_list:
+        recommended.append(item.get_text(" ",strip=True))
+
+    enemies = ''
+    enemies_check = full_details.find('th', text=re.compile("Enemies to defeat"))
+    if enemies_check != None:
+      enemies = full_details.find('th', text=re.compile("Enemies to defeat")).find_next_sibling('td').get_text(" ",strip=True)
+
+    quest_object = {
+      "link": url,
+      "name": title,
+      "isMembers": members_boolean,
+      "series": series,
+      "startPoint": start_point,
+      "releaseDate": released,
+      "difficulty": difficulty,
+      "description": description,
+      "length": length,
+      "requirements": requirements,
+      "itemsRequired": items_required,
+      "recommended": recommended,
+      "enemies": enemies
+    }
+
+    quest_json_data.append(quest_object)
+    print('Added: ' + title)
+    return
+
+  for url in urls: 
+    transform(url)
+
+  # Create JSON
+  jsonString = json.dumps(quest_json_data)
+  jsonFile = open('quest-list.json', "w")
+  jsonFile.write(jsonString)
+  jsonFile.close()
+
+
+@quests.route('/list', methods=['GET'])
+def get_osrs_quests():
+  with open('quest-list.json', 'r') as f:
+    json_data = json.load(f)
+    return json_data
+
+
+# WIP - grab optimal quest guides
+
+# regular_quest_url = 'https://oldschool.runescape.wiki/w/Optimal_quest_guide'
+# iron_man_url = 'https://oldschool.runescape.wiki/w/Optimal_quest_guide/Ironman'
+
+# update_guides(regular_quest_url, "optimal-quest-guide.json")
+# update_guides(iron_man_url, "optimal-quest-guide-ironman.json")
+
+# def update_guides(url, fileName):
+#   r = requests.get(str(url))
+#   soup = BeautifulSoup(r.content, 'lxml')
+#   table = soup.find('tbody')
+#   trows = table.find_all('tr')[1:]
+
+#   elements = []
+
+#   for row in trows:
+#     if row.find('th'):
+#       row_elements = {
+#         "quest": row.find('th').get_text(" ",strip=True),
+#         "guide": row.find('a')['href'],
+#         "levels": '',
+#         "points": '',
+#         "totalpoints": '',
+#         "info": [''],
+#         "training": True,
+#         "full_row": True
+#       }
+#       elements.append(row_elements)
+#     else:
+#       columns = row.find_all('td')
+#       if len(columns) < 7:
+#         # Has rowspan
+#         if len(columns) < 3:
+#           for item in columns:
+#             row_elements = {
+#               "quest": item.find('a')['title'],
+#               "guide": item.find('a')['href'],
+#               "levels": '',
+#               "points": '',
+#               "totalpoints": '',
+#               "info": [''],
+#               "training": False,
+#               "full_row": True
+#             }
+#             elements.append(row_elements)
+#         else:
+#           for item in columns:
+#             row_elements = {
+#               "quest": item.get_text(" ", strip=True),
+#               "guide": '',
+#               "levels": '',
+#               "points": '',
+#               "totalpoints": '',
+#               "info": [''],
+#               "training": False,
+#               "full_row": True
+#             }
+#             elements.append(row_elements)
+#       else:
+#         print(len(columns))
+#         row_elements = {
+#           "quest": columns[0].find('a')['title'],
+#           "guide": columns[0].find('a')['href'],
+#           "levels": columns[2].get_text(" ", strip=True),
+#           "points": columns[3].get_text(" ", strip=True),
+#           "totalpoints": columns[4].get_text(" ", strip=True),
+#           "info": [columns[5].get_text(" ", strip=True)],
+#           "training": False,
+#           "full_row": False
+#         }
+#         elements.append(row_elements)
+#   # Create JSON
+#   jsonString = json.dumps(elements)
+#   jsonFile = open(fileName, "w")
+#   jsonFile.write(jsonString)
+#   jsonFile.close()
+
