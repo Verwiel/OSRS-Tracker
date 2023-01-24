@@ -57,14 +57,13 @@ def fetch_quests():
 
     freeQuests = soup.find_all('tbody')[1]
     memberQuests = soup.find_all('tbody')[3]
-    minigames = soup.find_all('tbody')[4]
+    # minigames = soup.find_all('tbody')[4]
 
     find_titles(freeQuests)
     find_titles(memberQuests)
-    find_titles(minigames)
+    # find_titles(minigames)
 
     return table_json
-
 
 # Check if any quests have been added by comparing scraped list to stored list
 def check_quests():
@@ -103,76 +102,85 @@ def create_quest_list():
         full_details = details[2]
 
         # Get details from thumbnail section at top
+        quest_number = 0
+        quest_number_check = quick_details.find('th')
+        if quest_number_check != None:
+            quest_has_number = quest_number_check.find('span', text=re.compile(r'\(#[A-Za-z0-9]+\)'))
+            if quest_has_number != None:
+                quest_number_text = quest_has_number.get_text(" ",strip=True)
+                quest_number = int(re.sub(r'[(#)]', '', quest_number_text))
+
         released = ''
         released_check = quick_details.find('th', text=re.compile("Released"))
         if released_check != None:
-            releaseDate = quick_details.find('th', text=re.compile("Released")).find_next_sibling('td').find_all('a')
+            releaseDate = released_check.find_next_sibling('td').find_all('a')
             released = releaseDate[0].text + ", " + releaseDate[1].get_text(" ",strip=True)
 
         members_boolean = False
         members_check = quick_details.find('a', text=re.compile("Members"))
         if members_check != None:
-            members = quick_details.find('a', text=re.compile("Members")).parent.find_next_sibling('td').get_text(" ",strip=True)
+            members = members_check.parent.find_next_sibling('td').get_text(" ",strip=True)
             members_boolean = members == 'Yes'
 
         series = ''
-        seriesCheck = quick_details.find('a', text=re.compile("Quest series"))
-        if seriesCheck != None:
-            series = quick_details.find('a', text=re.compile("Quest series")).parent.find_next_sibling('td').get_text(" ",strip=True)
+        series_check = quick_details.find('a', text=re.compile("Quest series"))
+        if series_check != None:
+            series = series_check.parent.find_next_sibling('td').get_text(" ",strip=True)
 
         # Get remaining details from large table
         start_point = ''
         start_point_check = full_details.find('th', text=re.compile("Start point"))
         if start_point_check != None:
-            start_point = full_details.find('th', text=re.compile("Start point")).find_next_sibling('td').get_text(" ",strip=True)
+            start_point = start_point_check.find_next_sibling('td').get_text(" ",strip=True)
 
         difficulty = ''
         difficulty_check = full_details.find('th', text=re.compile("Official difficulty"))
         if difficulty_check != None:
-            difficulty = full_details.find('th', text=re.compile("Official difficulty")).find_next_sibling('td').get_text(" ",strip=True)
+            difficulty = difficulty_check.find_next_sibling('td').get_text(" ",strip=True)
 
         description = ''
         description_check = full_details.find('th', text=re.compile("Description"))
         if description_check != None:
-            description = full_details.find('th', text=re.compile("Description")).find_next_sibling('td').get_text(" ",strip=True)
+            description = description_check.find_next_sibling('td').get_text(" ",strip=True)
 
         length = ''
         length_check = full_details.find('th', text=re.compile("Official length"))
         if length_check != None:
-            length = full_details.find('th', text=re.compile("Official length")).find_next_sibling('td').get_text(" ",strip=True)
+            length = length_check.find_next_sibling('td').get_text(" ",strip=True)
 
         # convert to list, add check for if its a string
         requirements = []
         requirements_exist_check = full_details.find('th', text=re.compile("Requirements"))
         if requirements_exist_check != None:
-            requirements_list_check = full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').find_all('li')
+            requirements_list_check = requirements_exist_check.find_next_sibling('td').find_all('li')
             if requirements_list_check != None:
-                requirements_list = full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').find_all('li')
+                requirements_list = requirements_list_check
                 for item in requirements_list:
                     requirements.append(item.get_text(" ",strip=True))
             else:
-                requirements.append(full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').get_text(" ",strip=True))
+                requirements.append(requirements_exist_check.find_next_sibling('td').get_text(" ",strip=True))
 
         items_required = []
         items_required_check = full_details.find('th', text=re.compile("Items required"))
         if items_required_check != None:
-            required_list = full_details.find('th', text=re.compile("Items required")).find_next_sibling('td').find_all('li')
+            required_list = items_required_check.find_next_sibling('td').find_all('li')
             for item in required_list:
                 items_required.append(item.get_text(" ",strip=True))
 
         recommended= []
         recommended_check = full_details.find('th', text=re.compile("Recommended"))
         if recommended_check != None:
-            recommended_list = full_details.find('th', text=re.compile("Recommended")).find_next_sibling('td').find_all('li')
+            recommended_list = recommended_check.find_next_sibling('td').find_all('li')
             for item in recommended_list:
                 recommended.append(item.get_text(" ",strip=True))
 
         enemies = ''
         enemies_check = full_details.find('th', text=re.compile("Enemies to defeat"))
         if enemies_check != None:
-            enemies = full_details.find('th', text=re.compile("Enemies to defeat")).find_next_sibling('td').get_text(" ",strip=True)
+            enemies = enemies_check.find_next_sibling('td').get_text(" ",strip=True)
 
         quest_object = {
+            "number": quest_number,
             "link": url,
             "name": title,
             "isMembers": members_boolean,
