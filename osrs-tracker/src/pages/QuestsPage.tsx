@@ -4,8 +4,8 @@ import { PageLayout } from "../components/PageLayout";
 import { QuestList } from "../components/QuestList";
 
 export const QuestsPage: React.FC = () => {
-  const { questsLoaded, questList } = useQuestCtx()
-  console.log(questList)
+  const { questsLoaded } = useQuestCtx()
+
   return (
     <PageLayout>
       <h1>Quests Page</h1>

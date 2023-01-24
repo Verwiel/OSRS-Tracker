@@ -22,7 +22,11 @@ interface questContextType {
   loadingQuests: boolean;
   questsLoaded: boolean;
   questList: QuestType[];
+  modalOpen: boolean;
+  selectedQuest: QuestType;
   clearQuests: () => void;
+  openModal: (quest: QuestType) => void;
+  closeModal: () => void;
 }
 
 
@@ -31,6 +35,8 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
   const [loadingQuests, setLoadingQuests] = useState(false)
   const [questsLoaded, setQuestsLoaded] = useState(false)
   const [questList, setQuestList] = useState(defaultQuestInfo)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedQuest, setSelectedQuest] = useState(defaultQuestInfo[0])
   const [completedQuests, setCompletedQuests] = useState(
     storedQuests ? JSON.parse(storedQuests) : []
   )
@@ -58,12 +64,26 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
     setQuestsLoaded(false)
   }
 
+  const openModal = (quest: QuestType) => {
+    setSelectedQuest(quest)
+    setModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setModalOpen(false)
+    setSelectedQuest(defaultQuestInfo[0])
+  }
+
   return (
     <QuestContext.Provider value={{
       loadingQuests,
       questsLoaded,
       questList,
-      clearQuests
+      modalOpen,
+      selectedQuest,
+      clearQuests,
+      openModal,
+      closeModal
     }}>
       {children}
     </QuestContext.Provider>
