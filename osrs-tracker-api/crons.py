@@ -146,26 +146,26 @@ def create_quest_list():
         requirements_exist_check = full_details.find('th', text=re.compile("Requirements"))
         if requirements_exist_check != None:
             requirements_list_check = full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').find_all('li')
-        if requirements_list_check != None:
-            requirements_list = full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').find_all('li')
-            for item in requirements_list:
-                requirements.append(item.get_text(" ",strip=True))
-        else:
-            requirements.append(full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').get_text(" ",strip=True))
+            if requirements_list_check != None:
+                requirements_list = full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').find_all('li')
+                for item in requirements_list:
+                    requirements.append(item.get_text(" ",strip=True))
+            else:
+                requirements.append(full_details.find('th', text=re.compile("Requirements")).find_next_sibling('td').get_text(" ",strip=True))
 
         items_required = []
         items_required_check = full_details.find('th', text=re.compile("Items required"))
         if items_required_check != None:
             required_list = full_details.find('th', text=re.compile("Items required")).find_next_sibling('td').find_all('li')
-        for item in required_list:
-            items_required.append(item.get_text(" ",strip=True))
+            for item in required_list:
+                items_required.append(item.get_text(" ",strip=True))
 
         recommended= []
         recommended_check = full_details.find('th', text=re.compile("Recommended"))
         if recommended_check != None:
             recommended_list = full_details.find('th', text=re.compile("Recommended")).find_next_sibling('td').find_all('li')
-        for item in recommended_list:
-            recommended.append(item.get_text(" ",strip=True))
+            for item in recommended_list:
+                recommended.append(item.get_text(" ",strip=True))
 
         enemies = ''
         enemies_check = full_details.find('th', text=re.compile("Enemies to defeat"))
@@ -189,7 +189,7 @@ def create_quest_list():
         }
 
         quest_json_data.append(quest_object)
-        # print('Added: ' + title)
+        print('Added: ' + title)
         return
 
     for url in urls: 
