@@ -44,27 +44,23 @@ export const HighscoresList = () => {
   })
 
   return (
-    <section>
-      {/* <div className='scroll-header'></div> */}
-      <table className='scroll'>
-        <tbody>
-          <tr>
-            <th>Skill</th>
-            <th>Rank</th>
-            <th>Level</th>
-            <th>XP</th>
-          </tr>
-          {skillsMap}
-          <tr>
-            <th>Minigame</th>
-            <th>Rank</th>
-            <th></th>
-            <th>Score</th>
-          </tr>
-          {activitiesMap}
-        </tbody>
-      </table>
-      <div className='scroll-gooter'></div>
-    </section>
+    <table className='scroll'>
+      <tbody>
+        <tr>
+          <th>Skill</th>
+          <th>Rank</th>
+          <th>Level</th>
+          <th>XP</th>
+        </tr>
+        {skillsMap}
+        <tr>
+          <th>Minigame</th>
+          <th>Rank</th>
+          <th></th>
+          <th>Score</th>
+        </tr>
+        {activitiesMap}
+      </tbody>
+    </table>
   );
 };

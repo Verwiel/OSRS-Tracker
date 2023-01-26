@@ -1,12 +1,14 @@
 import React from "react";
-import { PageLayout } from "../components/PageLayout";
+import { PageLayoutCharacter } from "../components/PageLayoutCharacter";
 import { LevelsList } from "../components/LevelsList";
 
 export const LevelsPage: React.FC = () => (
-  <PageLayout>
+  <PageLayoutCharacter>
     <header>
       <h1>Skill Levels</h1>
     </header>
-    <LevelsList />
-  </PageLayout>
+    <section>
+      <LevelsList />
+    </section>
+  </PageLayoutCharacter>
 );

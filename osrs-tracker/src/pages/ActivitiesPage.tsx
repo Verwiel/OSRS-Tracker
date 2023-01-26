@@ -1,12 +1,14 @@
 import React from "react";
-import { PageLayout } from "../components/PageLayout"
+import { PageLayoutCharacter } from "../components/PageLayoutCharacter";
 import { ActivitiesList } from "../components/ActivitiesList";
 
 export const ActivitiesPage: React.FC = () => (
-  <PageLayout>
+  <PageLayoutCharacter>
     <header>
       <h1>Activities</h1>
     </header>
-    <ActivitiesList />
-  </PageLayout>
+    <section>
+      <ActivitiesList />
+    </section>
+  </PageLayoutCharacter>
 );

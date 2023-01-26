@@ -1,0 +1,32 @@
+.character-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6rem;
+
+    form {
+        max-width: 300px;
+        text-align: center;
+        color: #d9c27e;
+        background: url(https://www.runescape.com/img/rsp777/hiscores/search_box.gif) no-repeat;
+        background-size: 100% 100%;
+        padding: 20px;
+        label {
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+            input, select {
+                width: 75%;
+                padding: 2px 5px;
+                margin-top: 5px;
+                margin-bottom: 6px;
+            }
+        }
+        button {
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+    }
+}

@@ -1,12 +1,14 @@
 import React from "react";
-import { PageLayout } from "../components/PageLayout";
-import { HighscoresList } from '../components/HighscoresList'
+import { PageLayoutCharacter } from "../components/PageLayoutCharacter";
+import { HighscoresList } from '../components/HighscoresList';
 
 export const HighscoresPage: React.FC = () => (
-  <PageLayout>
+  <PageLayoutCharacter>
     <header>
       <h1>Highscores</h1>
     </header>
-    <HighscoresList />
-  </PageLayout>
+    <section>
+      <HighscoresList />
+    </section>
+  </PageLayoutCharacter>
 );

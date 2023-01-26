@@ -25,19 +25,17 @@ export const LevelsList = () => {
   })
 
   return (
-    <section>
-      <table className='scroll'>
-        <thead>
-          <tr>
-            <th>Skill</th>
-            <th>Level</th>
-            <th>XP</th>
-          </tr>
-        </thead>
-        <tbody>
-          {levelsMap}
-        </tbody>
-      </table>
-    </section>
+    <table className='scroll'>
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th>Level</th>
+          <th>XP</th>
+        </tr>
+      </thead>
+      <tbody>
+        {levelsMap}
+      </tbody>
+    </table>
   );
 };
