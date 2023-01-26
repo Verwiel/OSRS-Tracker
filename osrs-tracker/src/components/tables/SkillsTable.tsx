@@ -19,6 +19,13 @@ export const SkillsTable = () => {
         </td>
         <td>{level}</td>
         <td>{exp}</td>
+        <td>
+          {i > 0 &&
+            <a href={`https://oldschool.runescape.wiki/w/${skill}/Level_up_table`} target="_blank" rel="noopener noreferrer">
+              Unlocks
+            </a>
+          }
+        </td>
       </tr>
     )
   })
@@ -30,6 +37,7 @@ export const SkillsTable = () => {
           <th>Skill</th>
           <th>Level</th>
           <th>XP</th>
+          <th>Wiki</th>
         </tr>
       </thead>
       <tbody>

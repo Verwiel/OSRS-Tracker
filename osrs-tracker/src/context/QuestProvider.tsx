@@ -25,10 +25,12 @@ interface questContextType {
   modalOpen: boolean;
   selectedQuest: QuestType;
   completedQuests: string[];
+  filteredQuestList: QuestType[];
   clearQuests: () => void;
   openModal: (quest: QuestType) => void;
   closeModal: () => void;
   toggleQuestComplete: (questName: string) => void;
+  filterOnChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 
@@ -37,6 +39,7 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
   const [loadingQuests, setLoadingQuests] = useState(false)
   const [questsLoaded, setQuestsLoaded] = useState(false)
   const [questList, setQuestList] = useState(defaultQuestInfo)
+  const [filteredQuestList, setFilteredQuestList] = useState(defaultQuestInfo)
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedQuest, setSelectedQuest] = useState(defaultQuestInfo[0])
   const [completedQuests, setCompletedQuests] = useState(
@@ -51,8 +54,9 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
     setLoadingQuests(true)
     try {
       let { data } = await axios.get(`${backendURL}/quests/list`)
-      let updatedData = data.map((el: QuestType) => el.name.includes('Recipe for Disaster/') ? {...el, number: + 100} : el);
+      let updatedData = data.map((el: QuestType) => el.name.includes('Recipe for Disaster/') ? {...el, number: + 100, isMembers: true} : el);
       setQuestList(updatedData)
+      setFilteredQuestList(updatedData)
       setLoadingQuests(false)
       setQuestsLoaded(true)
     } catch (error) {
@@ -68,6 +72,34 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
     } else {
       setCompletedQuests([ ...completedQuests, questName ])
       localStorage.setItem('osrs-quests', JSON.stringify(completedQuests));
+    }
+  }
+
+  const filterOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target
+    switch(value) {
+      case 'all':
+        setFilteredQuestList(questList)
+        break;
+      case 'complete':
+        let filteredCompleteQuests = questList.filter(quest => completedQuests.includes(quest.name))
+        setFilteredQuestList(filteredCompleteQuests)
+        break;
+      case 'incomplete':
+        let filteredIncompleteQuests = questList.filter(quest => !completedQuests.includes(quest.name))
+        setFilteredQuestList(filteredIncompleteQuests)
+        break;
+      case 'members':
+          let filteredMembersQuests = questList.filter(quest => quest.isMembers)
+          setFilteredQuestList(filteredMembersQuests)
+          break;
+      case 'f2p':
+        let filteredFreeQuests = questList.filter(quest => !quest.isMembers)
+        setFilteredQuestList(filteredFreeQuests)
+        break;
+      default:
+        setFilteredQuestList(questList)
+        break;
     }
   }
 
@@ -95,10 +127,12 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
       modalOpen,
       selectedQuest,
       completedQuests,
+      filteredQuestList,
       clearQuests,
       openModal,
       closeModal,
-      toggleQuestComplete
+      toggleQuestComplete,
+      filterOnChange,
     }}>
       {children}
     </QuestContext.Provider>

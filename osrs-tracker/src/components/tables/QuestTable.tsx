@@ -2,9 +2,9 @@ import { useQuestCtx } from '../../context/QuestProvider'
 import { QuestTableItem } from './QuestTableItem'
 
 export const QuestTable = () => {
-    const { questList } = useQuestCtx()
+    const { filteredQuestList } = useQuestCtx()
 
-    const questMap = questList.sort((a,b) => a.number - b.number).map((quest, i) => {
+    const questMap = filteredQuestList.sort((a,b) => a.number - b.number).map((quest, i) => {
         return (
             <QuestTableItem key={i} quest={quest} />
         )
