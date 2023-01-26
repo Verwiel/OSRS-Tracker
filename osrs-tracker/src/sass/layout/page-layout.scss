@@ -23,14 +23,17 @@
   header {
     color: white;
     text-align: center;
+    font-family: rs-bold;
   }
 }
 
 .scroll {
   min-width: 379px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 85vw;
   position: relative;
   background: url(https://www.runescape.com/img/rsp777/hiscores/scroll_middle.gif) repeat-y;
+  background-size: 100%;
   line-height: 18px;
   color: $black;
   margin-top: 36px;
@@ -58,13 +61,20 @@
   tbody, thead {
     text-align: left;
     td:first-child, th:first-child {
-      padding-left: 10px;
+      padding-left: 15px;
     }
     th, td {
-      padding: 5px;
+      padding: 5px 10px;
+      font-size: 16px;
       img {
-        margin-right: 5px;
+        margin-right: 8px;
       }
+    }
+    th {
+      font-family: rs-bold;
+    }
+    td {
+      font-family: rs;
     }
   }
 }
