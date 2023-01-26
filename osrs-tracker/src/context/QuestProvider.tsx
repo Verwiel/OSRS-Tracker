@@ -24,9 +24,11 @@ interface questContextType {
   questList: QuestType[];
   modalOpen: boolean;
   selectedQuest: QuestType;
+  completedQuests: string[];
   clearQuests: () => void;
   openModal: (quest: QuestType) => void;
   closeModal: () => void;
+  toggleQuestComplete: (questName: string) => void;
 }
 
 
@@ -58,6 +60,17 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
     }
   }
 
+  const toggleQuestComplete = (questName: string) => {
+    if(completedQuests.includes(questName)){
+      let filteredCompletedQuests = completedQuests.filter((quest: string) => quest !== questName)
+      setCompletedQuests(filteredCompletedQuests)
+      localStorage.setItem('osrs-quests', JSON.stringify(filteredCompletedQuests));
+    } else {
+      setCompletedQuests([ ...completedQuests, questName ])
+      localStorage.setItem('osrs-quests', JSON.stringify(completedQuests));
+    }
+  }
+
   const clearQuests = () => {
     localStorage.removeItem('osrs-quests')
     setCompletedQuests([])
@@ -81,9 +94,11 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
       questList,
       modalOpen,
       selectedQuest,
+      completedQuests,
       clearQuests,
       openModal,
-      closeModal
+      closeModal,
+      toggleQuestComplete
     }}>
       {children}
     </QuestContext.Provider>

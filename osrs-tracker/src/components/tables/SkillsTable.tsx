@@ -3,7 +3,6 @@ import { useCharacterCtx } from '../../context/CharacterProvider'
 export const SkillsTable = () => {
   const { characterInfo } = useCharacterCtx()
 
-  // console.log(characterInfo.skills)
   const levels = characterInfo.skills
 
   const levelsMap = levels.map((item, i) => {

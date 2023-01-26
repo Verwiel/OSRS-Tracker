@@ -1,21 +1,12 @@
 import { useQuestCtx } from '../../context/QuestProvider'
+import { QuestTableItem } from './QuestTableItem'
 
 export const QuestTable = () => {
-    const { questList, openModal } = useQuestCtx()
+    const { questList } = useQuestCtx()
 
     const questMap = questList.sort((a,b) => a.number - b.number).map((quest, i) => {
         return (
-            <tr key={i}>
-                <td>{quest.number}</td>
-                <td onClick={() => openModal(quest)}>
-                    {quest.name}
-                </td>
-                <td>
-                    <a href={quest.link} target="_blank" rel="noopener noreferrer">
-                    Wiki Guide
-                    </a>
-                </td>
-            </tr>
+            <QuestTableItem key={i} quest={quest} />
         )
     })
 
@@ -29,7 +20,7 @@ export const QuestTable = () => {
             </tr>
             </thead>
             <tbody>
-            {questMap}
+                {questMap}
             </tbody>
         </table>
     )
