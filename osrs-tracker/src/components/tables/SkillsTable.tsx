@@ -1,6 +1,6 @@
 import { useCharacterCtx } from '../../context/CharacterProvider'
 
-export const LevelsList = () => {
+export const SkillsTable = () => {
   const { characterInfo } = useCharacterCtx()
 
   // console.log(characterInfo.skills)

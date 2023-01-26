@@ -1,6 +1,6 @@
 import React from "react";
 import { PageLayoutCharacter } from "../components/PageLayoutCharacter";
-import { ActivitiesList } from "../components/tables/ActivitiesList";
+import { ActivitiesTable } from "../components/tables/ActivitiesTable";
 
 export const ActivitiesPage: React.FC = () => (
   <PageLayoutCharacter>
@@ -8,7 +8,7 @@ export const ActivitiesPage: React.FC = () => (
       <h1>Activities</h1>
     </header>
     <section>
-      <ActivitiesList />
+      <ActivitiesTable />
     </section>
   </PageLayoutCharacter>
 );

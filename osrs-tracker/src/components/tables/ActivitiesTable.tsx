@@ -1,6 +1,6 @@
 import { useCharacterCtx } from '../../context/CharacterProvider'
 
-export const ActivitiesList = () => {
+export const ActivitiesTable = () => {
   const { characterInfo } = useCharacterCtx()
 
   // console.log(characterInfo.skills)
@@ -21,18 +21,16 @@ export const ActivitiesList = () => {
   })
 
   return (
-    <section>
-      <table className='scroll'>
-        <thead>
-          <tr>
-            <th>Activity</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {activitiesMap}
-        </tbody>
-      </table>
-    </section>
+    <table className='scroll'>
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {activitiesMap}
+      </tbody>
+    </table>
   );
 };

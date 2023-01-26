@@ -1,6 +1,6 @@
 import { useCharacterCtx } from '../../context/CharacterProvider'
 
-export const HighscoresList = () => {
+export const HighscoresTable = () => {
   const { characterInfo } = useCharacterCtx()
 
 

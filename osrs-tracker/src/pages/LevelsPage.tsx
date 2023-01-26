@@ -1,6 +1,6 @@
 import React from "react";
 import { PageLayoutCharacter } from "../components/PageLayoutCharacter";
-import { LevelsList } from "../components/tables/LevelsList";
+import { SkillsTable } from "../components/tables/SkillsTable";
 
 export const LevelsPage: React.FC = () => (
   <PageLayoutCharacter>
@@ -8,7 +8,7 @@ export const LevelsPage: React.FC = () => (
       <h1>Skill Levels</h1>
     </header>
     <section>
-      <LevelsList />
+      <SkillsTable />
     </section>
   </PageLayoutCharacter>
 );
