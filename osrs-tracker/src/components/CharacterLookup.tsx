@@ -25,7 +25,7 @@ export const CharacterLookup = () => {
           <option value="uim">Ultimate Ironman</option>
         </select>
       </label>
-      <button type='submit'>
+      <button type='submit' className='button button--secondary'>
         {loadingCharacter ?
           'Loading...'
           :

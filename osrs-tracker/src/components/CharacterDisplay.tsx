@@ -7,7 +7,9 @@ export const CharacterDisplay = () => {
     <section>
       <h2>Current Character: {storedUsername}</h2>
       <p>Gamemode: {gamemodeDisplay}</p>
-      <button onClick={clearCharacter}>Change Character</button>
+      <button onClick={clearCharacter} className='button button--primary'>
+        Change Character
+      </button>
     </section>
   );
 };

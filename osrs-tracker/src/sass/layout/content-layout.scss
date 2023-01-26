@@ -20,19 +20,6 @@
   line-height: 2.4rem;
 }
 
-#page-description {
-  display: flex;
-  flex-direction: column;
-}
-
-#page-description span {
-  margin-bottom: 1.6rem;
-}
-
-#page-description span:last-child {
-  margin-bottom: 0;
-}
-
 @media only screen and (max-width: 480px) {
   .content-layout {
     padding: 1.6rem;

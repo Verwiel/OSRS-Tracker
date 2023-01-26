@@ -20,12 +20,6 @@ app-logout-button {
   margin-right: 1.6rem;
 }
 
-app-login-button:last-child,
-app-signup-button:last-child,
-app-logout-button:last-child {
-  margin-right: 0;
-}
-
 app-page-loader {
   display: flex;
   height: 100%;

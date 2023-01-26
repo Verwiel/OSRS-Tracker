@@ -96,7 +96,7 @@ export const QuestModal = () => {
         </table>
         <a  style={{color: 'black'}} href={link} rel="noopener noreferrer" target="_blank" >View the guide on the OSRS wiki</a>
         <br />
-        <button onClick={closeModal}>close</button>
+        <button onClick={closeModal} className='button--close'>close</button>
       </Modal>
     </div>
   );
