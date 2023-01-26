@@ -12,7 +12,9 @@ export const QuestList = () => {
           {quest.name}
         </td>
         <td>
-          <a href={quest.link}>Wiki Guide</a>
+          <a href={quest.link} target="_blank" rel="noopener noreferrer">
+            Wiki Guide
+          </a>
         </td>
       </tr>
     )

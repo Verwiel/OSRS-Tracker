@@ -32,7 +32,6 @@ export const Features: React.FC = () => {
 
   return (
     <div className="features">
-      <h2 className="features__title">Explore OSRS Trackers Features</h2>
       <div className="features__grid">
         {featuresList.map((feature) => (
           <Feature
@@ -40,7 +39,6 @@ export const Features: React.FC = () => {
             title={feature.title}
             description={feature.description}
             resourcePath={feature.resourcePath}
-            // icon={feature.icon}
           />
         ))}
       </div>
