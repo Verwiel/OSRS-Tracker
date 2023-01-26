@@ -6,8 +6,8 @@
   width: 100%;
   box-shadow: rgb(90 95 102) 0-1.5px 0 inset;
   z-index: 300;
-  background-color: $chat;
-  border: 5px solid $inv-light;
+  background-color: $tan;
+  border: 5px solid $brown;
   font-family: rs-bold;
 }
 
@@ -31,7 +31,7 @@
   /* responsive */
   margin-right: 1.6rem;
   strong {
-    color: $font-yellow;
+    color: $yellow;
     font-size: 2rem;
   }
 }
@@ -52,10 +52,10 @@
   position: fixed;
   left: 0;
   top: 6.4rem;
-  background-color: $chat;
-  border-left: 5px solid $inv-light;
-  border-right: 5px solid $inv-light;
-  border-bottom: 5px solid $inv-light;
+  background-color: $tan;
+  border-left: 5px solid $brown;
+  border-right: 5px solid $brown;
+  border-bottom: 5px solid $brown;
   z-index: 300;
 }
 
@@ -94,23 +94,23 @@
 .mobile-nav-bar__tab--active {
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: $font-blue;
+  text-decoration-color: $dark-blue;
   /* responsive */
   text-decoration-thickness: 4px;
   text-underline-offset: 8px;
 }
 
 .mobile-nav-bar__tab:hover {
-  color: $hyperlink;
+  color: $blue;
 }
 
 @media only screen and (max-width: 640px) and (hover: none) {
   .mobile-nav-bar__tab:hover {
-    color: $hyperlink;
+    color: $blue;
   }
 
   .mobile-nav-bar__tab--active:hover {
-    color: $hyperlink;
+    color: $blue;
   }
 }
 

@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba($inv-dark, .75);
+    background-color: rgba($dark-brown, .75);
     top: 0;
     bottom: 0;
     left: 0;
@@ -15,8 +15,8 @@
     position: absolute;
     margin: 5%;
     border: 1px solid rgb(204, 204, 204);
-    border: 5px solid $inv-light;
-    background: $chat;
+    border: 5px solid $brown;
+    background: $tan;
     overflow: auto;
     border-radius: 4px;
     outline: none;
@@ -35,7 +35,7 @@
     border: none;
     outline: none;
     &:hover {
-        color: $font-red;
+        color: $red;
         cursor: pointer;
     }
 }

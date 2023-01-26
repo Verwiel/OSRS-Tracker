@@ -6,8 +6,8 @@
   width: 100%;
   box-shadow: rgb(90 95 102) 0-1.5px 0 inset;
   z-index: 300;
-  background-color: $chat;
-  border: 5px solid $inv-light;
+  background-color: $tan;
+  border: 5px solid $brown;
   font-family: rs-bold;
 }
 
@@ -30,7 +30,7 @@
   /* responsive */
   margin-right: 64px;
   strong {
-    color: $font-yellow;
+    color: $yellow;
     font-size: 2.8rem;
   }
 }
@@ -70,14 +70,14 @@
 .nav-bar__tab--active {
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: $font-blue;
+  text-decoration-color: $dark-blue;
   /* responsive */
   text-decoration-thickness: 3px;
   text-underline-offset: 8px;
 }
 
 .nav-bar__tab:hover {
-  color: $hyperlink;
+  color: $blue;
 }
 
 .nav-bar__icon {
@@ -91,11 +91,11 @@
 
 @media only screen and (max-width: 640px) and (hover: none) {
   .mobile-nav-bar__tab:hover {
-    color: $hyperlink;
+    color: $blue;
   }
 
   .mobile-nav-bar__tab--active:hover {
-    color: $hyperlink;
+    color: $blue;
   }
 }
 
@@ -125,7 +125,7 @@
 
   .nav-bar__tab--active {
     text-decoration-line: none;
-    color: $font-green;
+    color: $green;
   }
 
   .nav-bar__label {
@@ -164,7 +164,7 @@
 
   .nav-bar__tab--active {
     text-decoration-line: none;
-    color: $font-green;
+    color: $green;
   }
 
   .nav-bar__buttons {

@@ -6,14 +6,14 @@
 }
 
 .quest-table-row-complete {
-    color: $font-green;
+    color: $green;
     td {
         cursor: pointer;
     }
 }
 
 .quest-table-uncompletable {
-    color: $font-red;
+    color: $red;
     td {
         cursor: pointer;
     }
