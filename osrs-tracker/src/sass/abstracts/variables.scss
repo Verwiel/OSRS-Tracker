@@ -1,13 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap");
 
 /* Theme */
+$inventory-background: #3e3529;
+$inventory-border: #756b59;
+$chat-background: #c4b392;
+$inv-gray: #53534f;
+$inv-dark-gray: #2f2c24;
+$red: #6c2121;
+$font-red: #e23333;
+$font-blue: #000080;
+$font-green: #00ff00;
+$font-orange: #fb8e40;
+$hyperlink: #0000ff;
+$font-yellow: #ffff00;
+$white: #fff;
+$black: #000000;
+
+
+
 $orange: #ff4f40;
 $indigo: #635dff;
-$white: #fff;
 $light-aluminium: #eaecee;
 $aluminium: #bdc4cf;
 $dark-aluminium: #2a2e35;
-$black: #000000;
 $yellow: #ebca40;
 $mandarine: #ff7f38;
 $pink: #ff44dd;
