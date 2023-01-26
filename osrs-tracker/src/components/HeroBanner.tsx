@@ -1,7 +1,6 @@
 import React from "react";
 
 export const HeroBanner: React.FC = () => {
-
   return (
     <div className="hero-banner">
       <h1 className="hero-banner__headline">OSRS Tracker</h1>

@@ -1,4 +1,4 @@
-import { useCharacterCtx } from '../context/CharacterProvider'
+import { useCharacterCtx } from '../../context/CharacterProvider'
 
 export const LevelsList = () => {
   const { characterInfo } = useCharacterCtx()

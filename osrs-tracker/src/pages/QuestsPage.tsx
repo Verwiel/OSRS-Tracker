@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuestCtx } from "../context/QuestProvider";
 import { PageLayout } from "../components/PageLayout";
-import { QuestList } from "../components/QuestList";
+import { QuestList } from "../components/tables/QuestList";
 
 export const QuestsPage: React.FC = () => {
   const { questsLoaded } = useQuestCtx()

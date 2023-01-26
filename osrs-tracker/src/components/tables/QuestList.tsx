@@ -1,5 +1,5 @@
-import { useQuestCtx } from "../context/QuestProvider";
-import { QuestModal } from "./QuestModal";
+import { useQuestCtx } from "../../context/QuestProvider";
+import { QuestModal } from "../QuestModal";
 
 export const QuestList = () => {
   const { questList, openModal } = useQuestCtx()

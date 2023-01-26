@@ -1,6 +1,6 @@
 import React from "react";
 import { PageLayoutCharacter } from "../components/PageLayoutCharacter";
-import { HighscoresList } from '../components/HighscoresList';
+import { HighscoresList } from '../components/tables/HighscoresList';
 
 export const HighscoresPage: React.FC = () => (
   <PageLayoutCharacter>

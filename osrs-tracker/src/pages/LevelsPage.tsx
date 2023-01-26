@@ -1,6 +1,6 @@
 import React from "react";
 import { PageLayoutCharacter } from "../components/PageLayoutCharacter";
-import { LevelsList } from "../components/LevelsList";
+import { LevelsList } from "../components/tables/LevelsList";
 
 export const LevelsPage: React.FC = () => (
   <PageLayoutCharacter>

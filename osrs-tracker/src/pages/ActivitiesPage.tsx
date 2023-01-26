@@ -1,6 +1,6 @@
 import React from "react";
 import { PageLayoutCharacter } from "../components/PageLayoutCharacter";
-import { ActivitiesList } from "../components/ActivitiesList";
+import { ActivitiesList } from "../components/tables/ActivitiesList";
 
 export const ActivitiesPage: React.FC = () => (
   <PageLayoutCharacter>
