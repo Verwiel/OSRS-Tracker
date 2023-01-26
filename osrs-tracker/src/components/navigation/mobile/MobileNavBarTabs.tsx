@@ -20,7 +20,7 @@ export const MobileNavBarTabs: React.FC<MobileNavBarTabsProps> = ({ handleClick 
       }
       <MobileNavBarTab
         path="/quests"
-        label="QUests"
+        label="Quests"
         handleClick={handleClick}
       />
     </div>

@@ -12,9 +12,18 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin-top: 8rem;
   max-width: 120rem;
+  padding-bottom: 75px;
   width: 100%;
+  background-image: url(https://www.runescape.com/img/rsp777/bg2.jpg);
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+}
+
+table {
+  background-color: $chat;
 }
 
 @media only screen and (max-width: 640px) {

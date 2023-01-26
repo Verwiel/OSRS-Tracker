@@ -8,7 +8,7 @@ export const QuestsPage: React.FC = () => {
 
   return (
     <PageLayout>
-      <h1>Quests Page</h1>
+      <h1>Quests</h1>
       {questsLoaded ?
         <QuestList />
         :

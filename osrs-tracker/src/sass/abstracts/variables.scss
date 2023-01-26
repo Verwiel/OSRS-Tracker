@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap");
 
 /* Theme */
-$inventory-background: #3e3529;
-$inventory-border: #756b59;
-$chat-background: #c4b392;
+$inv-dark: #3e3529;
+$inv-light: #756b59;
 $inv-gray: #53534f;
 $inv-dark-gray: #2f2c24;
+$chat: #c4b392;
 $red: #6c2121;
 $font-red: #e23333;
 $font-blue: #000080;
@@ -16,67 +16,7 @@ $font-yellow: #ffff00;
 $white: #fff;
 $black: #000000;
 
-
-
-$orange: #ff4f40;
-$indigo: #635dff;
-$light-aluminium: #eaecee;
-$aluminium: #bdc4cf;
-$dark-aluminium: #2a2e35;
-$yellow: #ebca40;
-$mandarine: #ff7f38;
-$pink: #ff44dd;
-$blue: #3885ff;
-$aqua: #3ec6eb;
-$emerald: #1bc99f;
-
-$background: #282c34;
-$light-blue: #61dafb;
-
-
-$yellow-mandarine-gradient: linear-gradient(
-  153.07deg,
-  $yellow -2.47%,
-  $mandarine 102.78%
-);
-
-$mandarine-orange-gradient: linear-gradient(
-  153.07deg,
-  $mandarine -2.47%,
-  $orange 102.78%
-);
-
-
-$pink-indigo-gradient: linear-gradient(
-  153.07deg,
-  $pink -2.47%,
-  $indigo 102.78%
-);
-
-$indigo-aqua-gradient: linear-gradient(
-  153.07deg,
-  $indigo -2.47%,
-  $aqua 102.78%
-);
-
-$blue-aqua-gradient: linear-gradient(
-  153.07deg,
-  $blue -2.47%,
-  $aqua 102.78%
-);
-
-$aqua-emerald-gradient: linear-gradient(
-  153.07deg,
-  $aqua -2.47%,
-  $emerald 102.78%
-);
-
-$emerald-yellow-gradient: linear-gradient(
-  153.07deg,
-  $emerald -2.47%,
-  $yellow 102.78%
-);
-
+/* Fonts */
 $font-primary: "Inter", sans-serif;
 $font-secondary: "Space Grotesk", sans-serif;
 $font-mono: "Fira Code", monospace;

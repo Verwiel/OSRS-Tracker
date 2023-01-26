@@ -11,20 +11,33 @@ export const LevelsList = () => {
     let iconName = skill === 'Runecrafting' ? 'runecraft' : skill.toLowerCase()
     let skillIconUrl = `https://www.runescape.com/img/rsp777/hiscores/skill_icon_${iconName}1.gif`
     return (
-      <div key={i}>
-        {i > 0 &&
-          <img src={skillIconUrl} alt={skill} />
-        }
-        <p>{skill}</p>
-        <p>{level}</p>
-        <p>{exp}</p>
-      </div>
+      <tr key={i}>
+        <td>
+          {i > 0 &&
+            <img src={skillIconUrl} alt={skill} />
+          }
+          {skill}
+        </td>
+        <td>{level}</td>
+        <td>{exp}</td>
+      </tr>
     )
   })
 
   return (
     <section>
-      {levelsMap}
+      <table className='scroll'>
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>Level</th>
+            <th>XP</th>
+          </tr>
+        </thead>
+        <tbody>
+          {levelsMap}
+        </tbody>
+      </table>
     </section>
   );
 };

@@ -6,7 +6,8 @@
   width: 100%;
   box-shadow: rgb(90 95 102) 0-1.5px 0 inset;
   z-index: 300;
-  background-color: $black;
+  background-color: $chat;
+  border: 5px solid $inv-light
 }
 
 .mobile-nav-bar {
@@ -28,6 +29,10 @@
   height: 100%;
   /* responsive */
   margin-right: 1.6rem;
+  strong {
+    color: $font-yellow;
+    font-size: 2rem;
+  }
 }
 
 .mobile-nav-bar__link {
@@ -46,7 +51,10 @@
   position: fixed;
   left: 0;
   top: 6.4rem;
-  background-color: $black;
+  background-color: $chat;
+  border-left: 5px solid $inv-light;
+  border-right: 5px solid $inv-light;
+  border-bottom: 5px solid $inv-light;
   z-index: 300;
 }
 
@@ -73,8 +81,7 @@
   font-size: 2rem;
   line-height: 16px;
   padding: 3.2rem 2.4rem;
-  background-color: $black;
-  color: $white;
+  color: $black;
   width: 100%;
   box-shadow: rgb(90 95 102) 0-1.5px 0 inset;
 }
@@ -86,34 +93,23 @@
 .mobile-nav-bar__tab--active {
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: $light-blue;
+  text-decoration-color: $font-blue;
   /* responsive */
   text-decoration-thickness: 4px;
   text-underline-offset: 8px;
 }
 
 .mobile-nav-bar__tab:hover {
-  color: $white;
-}
-
-.mobile-nav-bar__icon {
-  display: none;
-}
-
-.mobile-nav-bar__buttons {
-  display: flex;
-  justify-content: center;
-  padding: 3.2rem;
-  background-color: $black;
+  color: $hyperlink;
 }
 
 @media only screen and (max-width: 640px) and (hover: none) {
   .mobile-nav-bar__tab:hover {
-    color: $white;
+    color: $hyperlink;
   }
 
   .mobile-nav-bar__tab--active:hover {
-    color: $white;
+    color: $hyperlink;
   }
 }
 

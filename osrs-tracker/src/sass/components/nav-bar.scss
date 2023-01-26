@@ -6,7 +6,8 @@
   width: 100%;
   box-shadow: rgb(90 95 102) 0-1.5px 0 inset;
   z-index: 300;
-  background-color: $background;
+  background-color: $chat;
+  border: 5px solid $inv-light
 }
 
 .nav-bar {
@@ -27,6 +28,10 @@
   height: 100%;
   /* responsive */
   margin-right: 64px;
+  strong {
+    color: $font-yellow;
+    font-size: 2.8rem;
+  }
 }
 
 .nav-bar__link {
@@ -54,6 +59,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 16px;
+  color: $black;
 }
 
 .nav-bar__tab:last-child {
@@ -63,14 +69,14 @@
 .nav-bar__tab--active {
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: $light-blue;
+  text-decoration-color: $font-blue;
   /* responsive */
-  text-decoration-thickness: 4px;
+  text-decoration-thickness: 3px;
   text-underline-offset: 8px;
 }
 
 .nav-bar__tab:hover {
-  color: $white;
+  color: $hyperlink;
 }
 
 .nav-bar__icon {
@@ -84,11 +90,11 @@
 
 @media only screen and (max-width: 640px) and (hover: none) {
   .mobile-nav-bar__tab:hover {
-    color: $white;
+    color: $hyperlink;
   }
 
   .mobile-nav-bar__tab--active:hover {
-    color: $white;
+    color: $hyperlink;
   }
 }
 
@@ -118,7 +124,7 @@
 
   .nav-bar__tab--active {
     text-decoration-line: none;
-    color: $pink;
+    color: $font-green;
   }
 
   .nav-bar__label {
@@ -157,7 +163,7 @@
 
   .nav-bar__tab--active {
     text-decoration-line: none;
-    color: $pink;
+    color: $font-green;
   }
 
   .nav-bar__buttons {

@@ -45,7 +45,8 @@ export const HighscoresList = () => {
 
   return (
     <section>
-      <table>
+      {/* <div className='scroll-header'></div> */}
+      <table className='scroll'>
         <tbody>
           <tr>
             <th>Skill</th>
@@ -63,6 +64,7 @@ export const HighscoresList = () => {
           {activitiesMap}
         </tbody>
       </table>
+      <div className='scroll-gooter'></div>
     </section>
   );
 };

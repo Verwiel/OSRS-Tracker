@@ -4,7 +4,7 @@ import { HighscoresList } from '../components/HighscoresList'
 
 export const HighscoresPage: React.FC = () => (
   <PageLayout>
-    <h1>Highscores Page</h1>
+    <h1>Highscores</h1>
     <HighscoresList />
   </PageLayout>
 );

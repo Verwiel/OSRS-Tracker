@@ -4,7 +4,7 @@ import { LevelsList } from "../components/LevelsList";
 
 export const LevelsPage: React.FC = () => (
   <PageLayout>
-    <h1>Levels Page</h1>
+    <h1>Skilll Levels</h1>
     <LevelsList />
   </PageLayout>
 );

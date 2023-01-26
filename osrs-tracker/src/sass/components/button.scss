@@ -14,16 +14,6 @@
   line-height: 2.4rem;
 }
 
-.button--close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  /* responsive */
-  padding: 1rem;
-  font-size: 1rem;
-  line-height: 1rem;
-}
-
 .button--primary {
   background-color: $white;
   color: $black;
@@ -31,14 +21,6 @@
 
 .button--primary:hover {
   background: rgba(255, 255, 255, 0.85);
-}
-
-.button--secondary {
-  background-color: $indigo;
-}
-
-.button--secondary:hover {
-  background: rgba(99, 93, 255, 0.85);
 }
 
 @media only screen and (max-width: 480px) {

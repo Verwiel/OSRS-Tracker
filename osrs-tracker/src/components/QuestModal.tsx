@@ -1,16 +1,7 @@
 import Modal from 'react-modal';
 import { useQuestCtx } from '../context/QuestProvider';
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 // // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 // Modal.setAppElement('#quest-list');
@@ -24,8 +15,9 @@ export const QuestModal = () => {
       <Modal
         isOpen={modalOpen}
         onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
+        contentLabel="Quest Modal"
+        overlayClassName='modal-overlay'
+        className='modal-content'
       >
         <header style={{color: 'black', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <span>
@@ -36,7 +28,7 @@ export const QuestModal = () => {
           }
           <p>Released: {releaseDate}</p>
         </header>
-        <table style={{color: 'black'}}>
+        <table>
           <tbody>
             <tr>
               <th>Start Point</th>
@@ -94,9 +86,11 @@ export const QuestModal = () => {
             </tr>
           </tbody>
         </table>
-        <a  style={{color: 'black'}} href={link} rel="noopener noreferrer" target="_blank" >View the guide on the OSRS wiki</a>
+        <a href={link} rel="noopener noreferrer" target="_blank" >View the guide on the OSRS wiki</a>
         <br />
-        <button onClick={closeModal} className='button--close'>close</button>
+        <button onClick={closeModal} className='modal-close'>
+          <FontAwesomeIcon icon={faXmark} />
+        </button>
       </Modal>
     </div>
   );

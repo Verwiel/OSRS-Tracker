@@ -6,18 +6,33 @@ export const QuestList = () => {
 
   const questMap = questList.sort((a,b) => a.number - b.number).map((quest, i) => {
     return (
-      <div key={i}>
-        <span onClick={() => openModal(quest)}>
-          {quest.name} (#{quest.number})
-        </span>
-      </div>
+      <tr key={i}>
+        <td>{quest.number}</td>
+        <td onClick={() => openModal(quest)}>
+          {quest.name}
+        </td>
+        <td>
+          <a href={quest.link}>Wiki Guide</a>
+        </td>
+      </tr>
     )
   })
 
   return (
     <article id='quest-list'>
       <QuestModal />
-      {questMap}
+      <table className='scroll'>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Quest</th>
+            <th>Guide</th>
+          </tr>
+        </thead>
+        <tbody>
+          {questMap}
+        </tbody>
+      </table>
     </article>
   );
 };

@@ -19,16 +19,20 @@ body {
 }
 
 body {
-  background-color: $inventory-background;
-  // color: $white;
+  background-color: $black;
   font-family: $font-primary;
-  // -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: scroll;
 }
 
-h1,
+h1 {
+  color: $white;
+  font-family: $font-secondary;
+  font-weight: 600;
+}
+
 h2,
 h3,
 h4,
@@ -115,7 +119,7 @@ textarea {
 }
 
 a {
-  color: $white;
+  color: $hyperlink;
   text-decoration: none;
 }
 
@@ -133,17 +137,9 @@ pre {
   width: 100%;
 }
 
-code {
-  color: $emerald;
-}
-
 #root {
   height: 100%;
   width: 100%;
-}
-
-h1, h2 {
-  color: white;
 }
 
 @media only screen and (max-width: 640px) {

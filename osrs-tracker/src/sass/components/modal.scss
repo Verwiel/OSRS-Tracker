@@ -1,0 +1,41 @@
+.modal-overlay {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($inv-dark, .75);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 500;
+}
+
+.modal-content {
+    position: absolute;
+    margin: 5%;
+    border: 1px solid rgb(204, 204, 204);
+    border: 5px solid $inv-light;
+    background: $chat;
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 25px 20px;
+    max-height: 100vh;
+}
+
+.modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* responsive */
+    font-size: 2rem;
+    color: $black;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    &:hover {
+        color: $font-red;
+        cursor: pointer;
+    }
+}
