@@ -86,8 +86,6 @@ export const QuestModal = () => {
             </tr>
           </tbody>
         </table>
-        <a href={link} rel="noopener noreferrer" target="_blank" >View the guide on the OSRS wiki</a>
-        <br />
         <button onClick={closeModal} className='modal-close'>
           <FontAwesomeIcon icon={faXmark} />
         </button>
