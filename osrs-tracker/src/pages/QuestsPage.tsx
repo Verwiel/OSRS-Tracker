@@ -8,7 +8,10 @@ export const QuestsPage: React.FC = () => {
 
   return (
     <PageLayout>
-      <h1>Quests</h1>
+      <header>
+        <h1>Quests</h1>
+        <p>Click the Quest number to mark it complete!</p>
+      </header>
       {questsLoaded ?
         <QuestList />
         :

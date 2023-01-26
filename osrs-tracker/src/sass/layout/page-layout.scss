@@ -20,11 +20,55 @@
   background-image: url(https://www.runescape.com/img/rsp777/bg2.jpg);
   background-size: 100% auto;
   background-repeat: repeat-y;
+  header {
+    color: white;
+    text-align: center;
+  }
 }
 
-table {
-  background-color: $chat;
+.scroll {
+  min-width: 379px;
+  max-width: 100%;
+  position: relative;
+  background: url(https://www.runescape.com/img/rsp777/hiscores/scroll_middle.gif) repeat-y;
+  line-height: 18px;
+  color: $black;
+  margin-top: 36px;
+  border-collapse: collapse;
+  &:before {
+    position: absolute;
+    top: -36px;
+    content: " ";
+    background: url(https://www.runescape.com/img/rsp777/hiscores/scroll_top.gif) no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 36px;
+    min-height: 36px;
+  }
+  &:after {
+    position: absolute;
+    bottom: -36px;
+    content: " ";
+    background: url(https://www.runescape.com/img/rsp777/hiscores/scroll_bottom.gif) no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 36px;
+    min-height: 36px;
+  }
+  tbody, thead {
+    text-align: left;
+    td:first-child, th:first-child {
+      padding-left: 10px;
+    }
+    th, td {
+      padding: 5px;
+      img {
+        margin-right: 5px;
+      }
+    }
+  }
 }
+
 
 @media only screen and (max-width: 640px) {
   .page-layout__content {

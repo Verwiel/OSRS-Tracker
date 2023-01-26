@@ -4,7 +4,9 @@ import { ActivitiesList } from "../components/ActivitiesList";
 
 export const ActivitiesPage: React.FC = () => (
   <PageLayout>
-    <h1>Activities</h1>
+    <header>
+      <h1>Activities</h1>
+    </header>
     <ActivitiesList />
   </PageLayout>
 );
