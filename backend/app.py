@@ -4,9 +4,6 @@ from flask_apscheduler import APScheduler
 from highscores import highscores
 from quests import quests
 from crons import crons, check_quests, fetch_highscores_titles
-import time
-import os
-from pytz import utc
 
 
 app = Flask(__name__)
