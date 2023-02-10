@@ -8,12 +8,12 @@ import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 export const PageFooter = () => {
   const resourceList: Resource[] = [
     {
-      path: "https://insideoutdev.com/about-us",
+      path: "https://github.com/Verwiel",
       label: "Github",
       icon: faGithub
     },
     {
-      path: "",
+      path: "https://www.linkedin.com/in/drew-verwiel/",
       label: "LinkedIn",
       icon: faLinkedin
     },
