@@ -13,6 +13,9 @@ app.register_blueprint(highscores, url_prefix="/highscores")
 app.register_blueprint(quests, url_prefix="/quests")
 app.register_blueprint(crons)
 
+@app.route('/')
+def home():
+    return 'OSRS Tracker API'
 
 # Check if quests or highscores scraped data has updated daily
 scheduler = APScheduler()
