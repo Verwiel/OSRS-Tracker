@@ -1,12 +1,12 @@
 import { useQuestCtx } from "../context/QuestProvider"
 
 export const QuestFilters = () => {
-    const { filterOnChange } = useQuestCtx()
+    const { filterOnChange, questList, completedQuests } = useQuestCtx()
 
     return (
-        <aside>
+        <aside className='quest-filter'>
             <label htmlFor="">
-                Showing:
+                Showing: {"  "}
                 <select name="" id="" onChange={(e) => filterOnChange(e)}>
                     <option value="all">All</option>
                     <option value="complete">Completed</option>
@@ -15,6 +15,8 @@ export const QuestFilters = () => {
                     <option value="f2p">Free</option>
                 </select>
             </label>
+
+            <span>{completedQuests.length} / {questList.length}</span>
         </aside>
     )
 }
