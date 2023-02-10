@@ -7,7 +7,7 @@ type FooterHyperlinkProps = {
 
 export const PageFooterHyperlink: React.FC<FooterHyperlinkProps> = ({
   children,
-  path,
+  path
 }) => {
   return (
     <a

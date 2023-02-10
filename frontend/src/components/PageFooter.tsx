@@ -1,40 +1,46 @@
 import { Resource } from "../models/resource";
 import { PageFooterHyperlink } from "./PageFooterHyperlink";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+
 
 export const PageFooter = () => {
   const resourceList: Resource[] = [
     {
       path: "https://insideoutdev.com/about-us",
       label: "Github",
+      icon: faGithub
     },
     {
       path: "",
       label: "LinkedIn",
+      icon: faLinkedin
     },
     {
       path: "https://drew-verwiel.vercel.app/#contact",
       label: "Website",
+      icon: faGlobe
     },
   ];
 
   return (
     <footer className="page-footer">
       <section>
-        <p>Developed by: 
+        <small>Developed by: {" "}
           <PageFooterHyperlink path="https://drew-verwiel.vercel.app">
             Drew Verwiel
           </PageFooterHyperlink>
-        </p>
+        </small>
       </section>
 
-      <section>
+      <section className="page-footer-social">
         {resourceList.map((resource) => (
           <div
             key={resource.path}
-            className="page-footer-info__resource-list-item"
           >
             <PageFooterHyperlink path={resource.path}>
-              {resource.label}
+              <FontAwesomeIcon icon={resource.icon} title={resource.label} />
             </PageFooterHyperlink>
           </div>
         ))}
