@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json
+from flask_cors import cross_origin
 
 # can add static_folder="" and template_folder="" as params below
 highscores = Blueprint("highscores", __name__)
@@ -23,6 +24,7 @@ def get_gamemode_url(mode, username):
 
 
 @highscores.route('/', methods=['GET'])
+@cross_origin()
 def get_osrs_profile():
     username = request.args.get('username')
     gamemode = request.args.get('gamemode')
@@ -77,6 +79,7 @@ def get_osrs_profile():
 
 
 @highscores.route('/check/account', methods=['GET'])
+@cross_origin()
 def check_osrs_profile():
     username = request.args.get('username')
     gamemode = request.args.get('gamemode')

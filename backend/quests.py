@@ -1,4 +1,5 @@
 from flask import Blueprint
+from flask_cors import cross_origin
 import json
 
 # can add static_folder="" and template_folder="" as params below
@@ -6,6 +7,7 @@ quests = Blueprint("quests", __name__)
 
 
 @quests.route('/list', methods=['GET'])
+@cross_origin()
 def get_osrs_quests():
     with open('quest-list.json', 'r') as f:
         json_data = json.load(f)
