@@ -10,17 +10,16 @@ highscores = Blueprint("highscores", __name__)
 def get_gamemode_url(mode, username):
     base_url = 'https://secure.runescape.com/m='
     base_url_end = f'/index_lite.ws?player={username}'
-    match mode:
-        case 'regular':
-            return base_url+'hiscore_oldschool'+base_url_end
-        case 'ironman':
-            return base_url+'hiscore_oldschool_ironman'+base_url_end
-        case 'hcim':
-            return base_url+'hiscore_oldschool_hardcore_ironman'+base_url_end
-        case 'uim':
-            return base_url+'hiscore_oldschool_ultimate'+base_url_end
-        case _:
-            return base_url+'hiscore_oldschool'+base_url_end
+    if mode == 'regular':
+        return base_url+'hiscore_oldschool'+base_url_end
+    elif mode == 'ironman':
+        return base_url+'hiscore_oldschool_ironman'+base_url_end
+    elif mode ==  'hcim':
+        return base_url+'hiscore_oldschool_hardcore_ironman'+base_url_end
+    elif mode ==  'uim':
+        return base_url+'hiscore_oldschool_ultimate'+base_url_end
+    else:
+        return base_url+'hiscore_oldschool'+base_url_end
 
 
 @highscores.route('/', methods=['GET'])
