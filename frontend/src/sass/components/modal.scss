@@ -22,6 +22,27 @@
     outline: none;
     padding: 25px 20px;
     max-height: 100vh;
+    table {
+        text-align: left;
+        display: block;
+        border-collapse:separate; 
+        border-spacing: 0 1rem;
+        ul {
+            margin: 0;
+            padding: 10px;
+        }
+    }
+}
+
+.modal-header {
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    p {
+        margin: 0 0 3px 0;
+    }
 }
 
 .modal-close {
@@ -29,7 +50,7 @@
     top: 0;
     right: 0;
     /* responsive */
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: $black;
     background-color: transparent;
     border: none;

@@ -19,14 +19,17 @@ export const QuestModal = () => {
         overlayClassName='modal-overlay'
         className='modal-content'
       >
-        <header style={{color: 'black', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <header className='modal-header'>
           <span>
             <h2 style={{color: 'black', margin: '0'}}>{name}</h2>
           </span>
-          {!series.includes('None') &&
-            <p>Series: {series}</p>
-          }
-          <p>Released: {releaseDate}</p>
+
+          <span className='modal-release'>
+            <p>Released: {releaseDate}</p>
+            {!series.includes('None') &&
+              <p>Series: {series}</p>
+            }
+          </span>
         </header>
         <table>
           <tbody>
