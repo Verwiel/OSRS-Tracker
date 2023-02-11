@@ -50,6 +50,11 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
     if(questList.length <= 1) loadQuests()
   }, [questList])
 
+  useEffect(() => {
+    let lsCompletedQuests = JSON.stringify(completedQuests)
+    localStorage.setItem('osrs-quests', lsCompletedQuests);
+  }, [completedQuests])
+
   const loadQuests = async () => {
     setLoadingQuests(true)
     try {
@@ -64,14 +69,12 @@ export const QuestProvider: React.FC<ProviderType> = ({ children }) => {
     }
   }
 
-  const toggleQuestComplete = (questName: string) => {
+  const toggleQuestComplete = async (questName: string) => {
     if(completedQuests.includes(questName)){
-      let filteredCompletedQuests = completedQuests.filter((quest: string) => quest !== questName)
+      const filteredCompletedQuests = completedQuests.filter((quest: string) => quest !== questName)
       setCompletedQuests(filteredCompletedQuests)
-      localStorage.setItem('osrs-quests', JSON.stringify(filteredCompletedQuests));
     } else {
       setCompletedQuests([ ...completedQuests, questName ])
-      localStorage.setItem('osrs-quests', JSON.stringify(completedQuests));
     }
   }
 
