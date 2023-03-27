@@ -6,6 +6,9 @@ from quests import quests
 from crons import crons, check_quests, fetch_highscores_titles
 
 
+# def create_app():
+
+
 app = Flask(__name__)
 CORS(app)
 
