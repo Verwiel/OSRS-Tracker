@@ -2,6 +2,7 @@ import React from "react";
 import { useQuestCtx } from "../context/QuestProvider";
 import { PageLayout } from "../components/PageLayout";
 import { QuestList } from "../components/QuestList";
+import { PageLoader } from "../components/PageLoader";
 
 export const QuestsPage: React.FC = () => {
   const { questsLoaded } = useQuestCtx()
@@ -15,7 +16,7 @@ export const QuestsPage: React.FC = () => {
       {questsLoaded ?
         <QuestList />
         :
-        <h2>Loading...</h2>
+        <PageLoader />
       }
     </PageLayout>
   )
